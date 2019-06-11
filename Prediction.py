@@ -18,10 +18,6 @@ print("Model loaded...")
 
 def real(img,j,h,w,g): #input grayscale image specifying height, width, file to be written
 		#try:
-		#scale_percent = 60
-		#aspect_ratio = (img.shape[0]/img.shape[1])
-		#width = int(img.shape[0] * aspect_ratio)
-		#print("reshaped width : ", width)
 		img = img.astype(np.float32)       # convert to float 32
 		img = (img / 255.0) * 2.0 - 1.0    # normalising
 		img_pred = img.T                   # (h,w) -> (w,h)
@@ -52,7 +48,11 @@ image_dir = os.listdir("./lisence_plate/")
 
 img = cv2.imread("./lisence_plate/69.jpg", 0)
 height = 32
-img = cv2.resize(img,(img.shape[1],height))
+aspect_ratio = (img.shape[1]/img.shape[0])
+height =32
+width = int(aspect_ratio * height)
+print("width and height = {},{}".format(width, height))
+img = cv2.resize(img,(width,height))
 print(img.shape)
 cv2.imshow("img", img)
 cv2.waitKey(0)
